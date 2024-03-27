@@ -1,7 +1,7 @@
 package hydraheadhunter.commandstatistics.util;
 
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import hydraheadhunter.commandstatistics.command.StatisticsCommand;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
 public class ModRegistries {
 
@@ -11,5 +11,6 @@ public class ModRegistries {
           CommandRegistrationCallback.EVENT.register(StatisticsCommand::registerADD    );
           CommandRegistrationCallback.EVENT.register(StatisticsCommand::registerSET    );
           CommandRegistrationCallback.EVENT.register(StatisticsCommand::registerREDUCE );
+
      }
 }
