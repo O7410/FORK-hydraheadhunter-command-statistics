@@ -9,6 +9,10 @@
   "commandstatistics.feedback.set.default"                : "%s %s %s changed from %s to %s"                     ,
   "commandstatistics.feedback.reduce.default"             : "%s %s %s decreased from %s by %s to %s"             ,
 
+  "commandstatistics.feedback.add.score"                  : "%s %s %s increased from %s by %s from %s to %s"     ,
+  "commandstatistics.feedback.set.score"                  : "%s %s %s changed from %s to %s from %s"             ,
+  "commandstatistics.feedback.reduce.score"               : "%s %s %s decreased from %s by %s from %s to %s"     ,
+
 
   "Currently unused Nonsense": "Might get around to restructuring all this into something useable after I've got all actual functions I have planned worked out",
   "commandstatistics.feedback.query.non"                  : "%s ain't never %s %s before, partner."              ,

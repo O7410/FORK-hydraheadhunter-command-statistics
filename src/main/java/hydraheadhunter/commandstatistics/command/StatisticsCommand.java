@@ -767,20 +767,256 @@ public class StatisticsCommand {
          ;
 
      }
+     public static      void registerADDobj     (CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access, CommandManager.RegistrationEnvironment environment) {
+        String executionMode = ADD;
+        int executionOP = 2;
 
-     private static <T> int  executeADD         (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified                    ) throws CommandSyntaxException {
+         dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+              .then(CommandManager.literal(executionMode)
+                   .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                        .then( CommandManager.literal(MINED)
+                             .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, BlockStateArgumentType.blockState(access)))
+                                  .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                                       .executes(                                                       context -> executeADD(
+                                                                      (ServerCommandSource)                             context.getSource()                                         ,
+                                                                      EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                                      Stats.MINED                                       /* - - - - - - - - - */                                     ,
+                                                                      BlockStateArgumentType.getBlockState(             context, STAT).getBlockState().getBlock()                   ,
+                                                                      ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                             //
+                                                       )
+                                                       )
+                                  )
+                                  )
+                             )
+                        )
+                   )
+              )
+         )
+         ;
+
+         dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+              .then(CommandManager.literal(executionMode)
+                   .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                        .then( CommandManager.literal(CRAFTED)
+                             .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                  .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                                       .executes(                                                       context -> executeADD(
+                                                                      (ServerCommandSource)                             context.getSource()                                         ,
+                                                                      EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                                      Stats.CRAFTED                                     /* - - - - - - - - - */                                     ,
+                                                                      ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                                      ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                       )
+                                                       )
+                                  )
+                                  )
+                             )
+                        )
+                   )
+              )
+         )
+         ;
+
+         dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+              .then(CommandManager.literal(executionMode)
+                   .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                        .then( CommandManager.literal(USED)
+                             .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                  .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                                       .executes(                                                       context -> executeADD(
+                                                                      (ServerCommandSource)                             context.getSource()                                         ,
+                                                                      EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                                      Stats.USED                                        /* - - - - - - - - - */                                     ,
+                                                                      ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                                      ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                       )
+                                                       )
+                                  )
+                                  )
+                             )
+                        )
+                   )
+              )
+         )
+         ;
+
+         dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+              .then(CommandManager.literal(executionMode)
+                   .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                        .then( CommandManager.literal(BROKEN)
+                             .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                                            .suggests( new BreakableItemSuggestionProvider())
+                                  .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                                       .executes(                                                       context -> executeADD(
+                                                                      (ServerCommandSource)                             context.getSource()                                         ,
+                                                                      EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                                      Stats.BROKEN                                      /* - - - - - - - - - */                                     ,
+                                                                      ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                                      ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                       )
+                                                       )
+                                  )
+                                  )
+                             )
+                        )
+                   )
+              )
+         )
+         ;
+
+         dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+              .then(CommandManager.literal(executionMode)
+                   .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                        .then( CommandManager.literal(PICKED_UP)
+                             .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                  .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                                       .executes(                                                       context -> executeADD(
+                                                                      (ServerCommandSource)                             context.getSource()                                         ,
+                                                                      EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                                      Stats.PICKED_UP                                   /* - - - - - - - - - */                                     ,
+                                                                      ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                                      ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                       )
+                                                       )
+                                  )
+                                  )
+                             )
+                        )
+                   )
+              )
+         )
+         ;
+
+         dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+              .then(CommandManager.literal(executionMode)
+                   .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                        .then( CommandManager.literal(DROPPED)
+                             .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                  .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                                       .executes(                                                       context -> executeADD(
+                                                                      (ServerCommandSource)                             context.getSource()                                         ,
+                                                                      EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                                      Stats.DROPPED                                     /* - - - - - - - - - */                                     ,
+                                                                      ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                                      ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                       )
+                                                       )
+                                  )
+                                  )
+                             )
+                        )
+                   )
+              )
+         )
+         ;
+
+         dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+              .then(CommandManager.literal(executionMode)
+                   .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                        .then( CommandManager.literal(KILLED)
+                             .then(((RequiredArgumentBuilder)CommandManager.argument(STAT, RegistryEntryArgumentType.registryEntry(access, RegistryKeys.ENTITY_TYPE)))
+                                                            .suggests(SuggestionProviders.SUMMONABLE_ENTITIES)
+                                  .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                                       .executes(                                                       context -> executeADD(
+                                                                      (ServerCommandSource)                             context.getSource()                                         ,
+                                                                      EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                                      Stats.KILLED                                      /* - - - - - - - - - */                                     ,
+                                                                      RegistryEntryArgumentType.getSummonableEntityType(context, STAT).value()                                      ,
+                                                                      ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                       )
+                                                       )
+                                  )
+                                  )
+                             )
+                        )
+                   )
+              )
+         )
+         ;
+
+         dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+              .then(CommandManager.literal(executionMode)
+                   .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                        .then( CommandManager.literal(KILLED_BY)
+                             .then(((RequiredArgumentBuilder)CommandManager.argument(STAT, RegistryEntryArgumentType.registryEntry(access, RegistryKeys.ENTITY_TYPE)))
+                                                            .suggests(SuggestionProviders.SUMMONABLE_ENTITIES)
+                                  .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                                       .executes(                                                       context -> executeADD(
+                                                                      (ServerCommandSource)                             context.getSource()                                         ,
+                                                                      EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                                      Stats.KILLED_BY                                   /* - - - - - - - - - */                                     ,
+                                                                      RegistryEntryArgumentType.getSummonableEntityType(context, STAT).value()                                      ,
+                                                                      ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                       )
+                                                       )
+                                  )
+                                  )
+                             )
+                        )
+                   )
+              )
+         )
+         ;
+
+         dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+              .then(CommandManager.literal(executionMode)
+                   .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                        .then( CommandManager.literal(CUSTOM)
+                             .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, RegistryEntryArgumentType.registryEntry(access, RegistryKeys.CUSTOM_STAT)))
+                                                            .suggests( new CustomStatsSuggestionProvider() )
+                                  .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                                       .executes(                                                       context -> executeADD(
+                                                                      (ServerCommandSource)                             context.getSource()                                         ,
+                                                                      EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                                      Stats.CUSTOM                                      /* - - - - - - - - - */                                     ,
+                                                                      RegistryEntryArgumentType.getRegistryEntry(       context, STAT, RegistryKeys.CUSTOM_STAT).value()            ,
+                                                                      ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                       )
+                                                       )
+                                  )
+                                  )
+                             )
+                        )
+                   )
+              )
+         )
+         ;
+
+
+     }
+
+     private static <T> int  executeADD         (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified                                ) throws CommandSyntaxException {
         return executeADD(source,targets,statType,statSpecified, 1);
      }
-     private static <T> int  executeADD         (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount        ) throws CommandSyntaxException {
+     private static <T> int  executeADD         (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount                    ) throws CommandSyntaxException {
           int toReturn=0;
           for (ServerPlayerEntity player : targets) {
                ServerStatHandler handler = player.getStatHandler();
+               handler.save();
+               int statValue = handler.getStat(statType, statSpecified);
+               player.increaseStat( statType.getOrCreateStat(statSpecified), amount);
+               handler.save();
+
+               AddFeedback.provideFeedback(source, player, statType,statSpecified, statValue, amount);
+               toReturn+=amount;
+
+          }
+          return toReturn;
+     }
+     private static <T> int  executeADD         (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, ScoreboardObjective obj ) throws CommandSyntaxException {
+          int toReturn=0;
+
+          for (ServerPlayerEntity player : targets) {
+               ServerStatHandler handler = player.getStatHandler();
+               Scoreboard scoreboard = player.getScoreboard();
+               int amount    = scoreboard.getOrCreateScore(player,obj).getScore();
+
                handler.save();
                     int statValue = handler.getStat(statType, statSpecified);
                     player.increaseStat( statType.getOrCreateStat(statSpecified), amount);
                handler.save();
 
-               AddFeedback.provideFeedback(source, player, statType,statSpecified, statValue, amount);
+               AddFeedback.provideFeedback(source, player, statType,statSpecified, statValue, amount, obj);
                toReturn+=amount;
 
           }
@@ -1067,11 +1303,228 @@ public class StatisticsCommand {
          ;
 
     }
+     public static      void registerSETobj     (CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access, CommandManager.RegistrationEnvironment environment) {
+          String executionMode = SET;
+          int executionOP = 3;
 
-     private static <T> int  executeSET         (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified                    ) throws CommandSyntaxException {
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(MINED)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, BlockStateArgumentType.blockState(access)))
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeSET(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.MINED                                       /* - - - - - - - - - */                                     ,
+                                                       BlockStateArgumentType.getBlockState(             context, STAT).getBlockState().getBlock()                   ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                             //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(CRAFTED)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeSET(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.CRAFTED                                     /* - - - - - - - - - */                                     ,
+                                                       ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(USED)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeSET(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.USED                                        /* - - - - - - - - - */                                     ,
+                                                       ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(BROKEN)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                   .suggests( new BreakableItemSuggestionProvider())
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeSET(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.BROKEN                                      /* - - - - - - - - - */                                     ,
+                                                       ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(PICKED_UP)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeSET(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.PICKED_UP                                   /* - - - - - - - - - */                                     ,
+                                                       ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(DROPPED)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeSET(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.DROPPED                                     /* - - - - - - - - - */                                     ,
+                                                       ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(KILLED)
+                              .then(((RequiredArgumentBuilder)CommandManager.argument(STAT, RegistryEntryArgumentType.registryEntry(access, RegistryKeys.ENTITY_TYPE)))
+                                   .suggests(SuggestionProviders.SUMMONABLE_ENTITIES)
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeSET(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.KILLED                                      /* - - - - - - - - - */                                     ,
+                                                       RegistryEntryArgumentType.getSummonableEntityType(context, STAT).value()                                      ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(KILLED_BY)
+                              .then(((RequiredArgumentBuilder)CommandManager.argument(STAT, RegistryEntryArgumentType.registryEntry(access, RegistryKeys.ENTITY_TYPE)))
+                                   .suggests(SuggestionProviders.SUMMONABLE_ENTITIES)
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeSET(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.KILLED_BY                                   /* - - - - - - - - - */                                     ,
+                                                       RegistryEntryArgumentType.getSummonableEntityType(context, STAT).value()                                      ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(CUSTOM)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, RegistryEntryArgumentType.registryEntry(access, RegistryKeys.CUSTOM_STAT)))
+                                   .suggests( new CustomStatsSuggestionProvider() )
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeSET(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.CUSTOM                                      /* - - - - - - - - - */                                     ,
+                                                       RegistryEntryArgumentType.getRegistryEntry(       context, STAT, RegistryKeys.CUSTOM_STAT).value()            ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+
+     }
+
+     private static <T> int  executeSET         (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified                          ) throws CommandSyntaxException {
         return executeSET(source,targets,statType,statSpecified, 0);
     }
-     private static <T> int  executeSET         (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount        ) throws CommandSyntaxException {
+     private static <T> int  executeSET         (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount              ) throws CommandSyntaxException {
           int toReturn=0;
           for (ServerPlayerEntity player : targets) {
                ServerStatHandler handler = player.getStatHandler();
@@ -1083,6 +1536,26 @@ public class StatisticsCommand {
                handler.save();
 
                SetFeedback.provideFeedback(source, player, statType,statSpecified, statValue, amount);
+
+               toReturn+=amount;
+          }
+          return toReturn;
+     }
+     private static <T> int  executeSET         (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, ScoreboardObjective obj ) throws CommandSyntaxException {
+          int toReturn=0;
+          for (ServerPlayerEntity player : targets) {
+               ServerStatHandler handler = player.getStatHandler();
+               Scoreboard scoreboard = player.getScoreboard();
+               int amount    = scoreboard.getOrCreateScore(player,obj).getScore();
+
+               handler.save();
+                    int statValue = handler.getStat(statType, statSpecified);
+                    player.resetStat(statType.getOrCreateStat(statSpecified));
+                         handler.save();
+                    player.increaseStat(statType.getOrCreateStat(statSpecified), amount);
+               handler.save();
+
+               SetFeedback.provideFeedback(source, player, statType,statSpecified, statValue, amount, obj);
 
                toReturn+=amount;
           }
@@ -1369,11 +1842,228 @@ public class StatisticsCommand {
          ;
 
     }
+     public static      void registerREDUCEobj  (CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access, CommandManager.RegistrationEnvironment environment) {
+          String executionMode = REDUCE;
+          int executionOP = 3;
 
-     private static <T> int  executeREDUCE      (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified                    ) throws CommandSyntaxException {
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(MINED)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, BlockStateArgumentType.blockState(access)))
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeREDUCE(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.MINED                                       /* - - - - - - - - - */                                     ,
+                                                       BlockStateArgumentType.getBlockState(             context, STAT).getBlockState().getBlock()                   ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                             //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(CRAFTED)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeREDUCE(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.CRAFTED                                     /* - - - - - - - - - */                                     ,
+                                                       ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(USED)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeREDUCE(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.USED                                        /* - - - - - - - - - */                                     ,
+                                                       ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(BROKEN)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                   .suggests( new BreakableItemSuggestionProvider())
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeREDUCE(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.BROKEN                                      /* - - - - - - - - - */                                     ,
+                                                       ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(PICKED_UP)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeREDUCE(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.PICKED_UP                                   /* - - - - - - - - - */                                     ,
+                                                       ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(DROPPED)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, ItemStackArgumentType.itemStack(access)))
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeREDUCE(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.DROPPED                                     /* - - - - - - - - - */                                     ,
+                                                       ItemStackArgumentType.getItemStackArgument(       context, STAT).getItem()                                    ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(KILLED)
+                              .then(((RequiredArgumentBuilder)CommandManager.argument(STAT, RegistryEntryArgumentType.registryEntry(access, RegistryKeys.ENTITY_TYPE)))
+                                   .suggests(SuggestionProviders.SUMMONABLE_ENTITIES)
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeREDUCE(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.KILLED                                      /* - - - - - - - - - */                                     ,
+                                                       RegistryEntryArgumentType.getSummonableEntityType(context, STAT).value()                                      ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(KILLED_BY)
+                              .then(((RequiredArgumentBuilder)CommandManager.argument(STAT, RegistryEntryArgumentType.registryEntry(access, RegistryKeys.ENTITY_TYPE)))
+                                   .suggests(SuggestionProviders.SUMMONABLE_ENTITIES)
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeREDUCE(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.KILLED_BY                                   /* - - - - - - - - - */                                     ,
+                                                       RegistryEntryArgumentType.getSummonableEntityType(context, STAT).value()                                      ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+          dispatcher.register( (LiteralArgumentBuilder)(  (LiteralArgumentBuilder) CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(executionOP)))
+               .then(CommandManager.literal(executionMode)
+                    .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
+                         .then( CommandManager.literal(CUSTOM)
+                              .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(STAT, RegistryEntryArgumentType.registryEntry(access, RegistryKeys.CUSTOM_STAT)))
+                                   .suggests( new CustomStatsSuggestionProvider() )
+                                   .then((ArgumentBuilder<ServerCommandSource, ?>)((RequiredArgumentBuilder)CommandManager.argument(OBJECTIVE, ScoreboardObjectiveArgumentType.scoreboardObjective())
+                                             .executes(                                                       context -> executeREDUCE(
+                                                       (ServerCommandSource)                             context.getSource()                                         ,
+                                                       EntityArgumentType.getPlayers(                    context, TARGETS)                                           ,
+                                                       Stats.CUSTOM                                      /* - - - - - - - - - */                                     ,
+                                                       RegistryEntryArgumentType.getRegistryEntry(       context, STAT, RegistryKeys.CUSTOM_STAT).value()            ,
+                                                       ScoreboardObjectiveArgumentType.getObjective(     context, OBJECTIVE)                                         //
+                                                  )
+                                             )
+                                        )
+                                   )
+                              )
+                         )
+                    )
+               )
+          )
+          ;
+
+
+     }
+
+     private static <T> int  executeREDUCE      (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified                          ) throws CommandSyntaxException {
         return executeREDUCE(source,targets,statType,statSpecified, 1);
     }
-     private static <T> int  executeREDUCE      (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount        ) throws CommandSyntaxException {
+     private static <T> int  executeREDUCE      (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount              ) throws CommandSyntaxException {
           int toReturn=0;
           for (ServerPlayerEntity player : targets) {
                ServerStatHandler handler = player.getStatHandler();
@@ -1386,6 +2076,27 @@ public class StatisticsCommand {
                handler.save();
 
                ReduceFeedback.provideFeedback(source, player, statType,statSpecified, statValue, amount, statValueNext);
+
+               toReturn+=amount;
+          }
+          return toReturn;
+     }
+     private static <T> int  executeREDUCE      (ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, ScoreboardObjective obj ) throws CommandSyntaxException {
+          int toReturn=0;
+          for (ServerPlayerEntity player : targets) {
+               ServerStatHandler handler = player.getStatHandler();
+               Scoreboard scoreboard = player.getScoreboard();
+               int amount    = scoreboard.getOrCreateScore(player,obj).getScore();
+
+               handler.save();
+                    int statValue     = handler.getStat(statType, statSpecified);
+                    int statValueNext = Math.max(0, statValue - amount);
+                    player.resetStat(statType.getOrCreateStat(statSpecified));
+                         handler.save();
+                    player.increaseStat(statType.getOrCreateStat(statSpecified), statValueNext);
+               handler.save();
+
+               ReduceFeedback.provideFeedback(source, player, statType,statSpecified, statValue, amount, statValueNext, obj);
 
                toReturn+=amount;
           }
