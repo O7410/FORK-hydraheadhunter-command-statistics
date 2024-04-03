@@ -14,7 +14,7 @@
   "commandstatistics.feedback.reduce.score"               : "%s %s %s decreased from %s by %s from %s to %s"     ,
 
 
-  "Currently unused Nonsense": "Might get around to restructuring all this into something useable after I've got all actual functions I have planned worked out",
+  "Currently unused Nonsense": "Might get around to restructuring all this into something usable after I've got all actual functions I have planned worked out",
   "commandstatistics.feedback.query.non"                  : "%s ain't never %s %s before, partner."              ,
   "commandstatistics.feedback.query.one"                  : "%s done did %s %s once."                            ,
   "commandstatistics.feedback.query.two"                  : "'Twas so nice, %s %s %s twice."                     ,

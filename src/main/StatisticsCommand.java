@@ -2,21 +2,17 @@ package hydraheadhunter.commandstatistics.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import hydraheadhunter.commandstatistics.command.argument.BlockArgumentType;
-import hydraheadhunter.commandstatistics.command.argument.ExecutionModeArgumentType;
 import hydraheadhunter.commandstatistics.command.argument.ItemArgumentType;
 import hydraheadhunter.commandstatistics.command.feedback.*;
 import hydraheadhunter.commandstatistics.command.suggestionprovider.CustomStatsSuggestionProvider;
 import hydraheadhunter.commandstatistics.command.suggestionprovider.ModSuggestionProviders;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.command.argument.EnumArgumentType;
 import net.minecraft.command.argument.RegistryEntryArgumentType;
 import net.minecraft.command.argument.ScoreboardObjectiveArgumentType;
 import net.minecraft.command.suggestion.SuggestionProviders;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.ScoreboardObjective;
@@ -32,8 +28,6 @@ import java.util.Collection;
 public class StatisticsCommand {
     private static final String STATISTICS = "statistics";
     private static final String TARGETS = "targets";
-
-    private static final String EXECUTION_MODE = "execution_mode";
 
     private static final String QUERY = "query";
     private static final String STORE = "store";
@@ -57,34 +51,6 @@ public class StatisticsCommand {
 
     //Execution OP 1 (Cannot change player statistics )
 // /statistics query @p <statType<T (Block | Item | EntityType<?> | Identifier )>> <stat<T>>
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access, CommandManager.RegistrationEnvironment environment) {
-        dispatcher.register(CommandManager.literal(STATISTICS).requires(source -> source.hasPermissionLevel(4))
-                .then(CommandManager.argument(EXECUTION_MODE, ExecutionModeArgumentType.executionMode())
-                        .then(CommandManager.argument(TARGETS, EntityArgumentType.players())
-                                .then(CommandManager.literal(MINED)
-                                        .then(CommandManager.argument(STAT, BlockArgumentType.block(access))
-                                                .executes(context -> ExecutionModeArgumentType.getExecuteFunction(context, EXECUTION_MODE))
-                        )
-                )
-        );
-
-    }
-
-    private static int execute(CommandContext<ServerCommandSource> context, ExecutionMode executionMode) throws CommandSyntaxException {
-        ServerCommandSource source = context.getSource();
-        Collection<ServerPlayerEntity> players = EntityArgumentType.getPlayers(context, TARGETS);
-        switch (executionMode) {
-            case QUERY -> executeQuery(source, );
-            case STORE -> ;
-            case ADD -> ;
-            case SET -> ;
-            case REDUCE -> ;
-            case ADD_OBJ -> ;
-            case SET_OBJ -> ;
-            case REDUCE_OBJ -> ;
-        }
-    }
-
     public static void registerQuery(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access, CommandManager.RegistrationEnvironment environment) {
         String executionMode = QUERY;
         int executionOP = 1;
@@ -192,7 +158,7 @@ public class StatisticsCommand {
 
     }
 
-    public static <T> int executeQuery(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified) throws CommandSyntaxException {
+    private static <T> int executeQuery(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified) throws CommandSyntaxException {
         int toReturn = 0;
         for (ServerPlayerEntity player : targets) {
             ServerStatHandler handler = player.getStatHandler();
@@ -340,7 +306,7 @@ public class StatisticsCommand {
         );
     }
 
-    public static <T> int executeStore(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, ScoreboardObjective objective) throws CommandSyntaxException {
+    private static <T> int executeStore(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, ScoreboardObjective objective) throws CommandSyntaxException {
         int toReturn = 0;
         for (ServerPlayerEntity player : targets) {
             ServerStatHandler handler = player.getStatHandler();
@@ -688,11 +654,11 @@ public class StatisticsCommand {
 
     }
 
-    public static <T> int executeAdd(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified) throws CommandSyntaxException {
+    private static <T> int executeAdd(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified) throws CommandSyntaxException {
         return executeAdd(source, targets, statType, statSpecified, 1);
     }
 
-    public static <T> int executeAdd(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount) throws CommandSyntaxException {
+    private static <T> int executeAdd(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount) throws CommandSyntaxException {
         int toReturn = 0;
         for (ServerPlayerEntity player : targets) {
             ServerStatHandler handler = player.getStatHandler();
@@ -707,7 +673,7 @@ public class StatisticsCommand {
         return toReturn;
     }
 
-    public static <T> int executeAdd(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, ScoreboardObjective obj) throws CommandSyntaxException {
+    private static <T> int executeAdd(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, ScoreboardObjective obj) throws CommandSyntaxException {
         int toReturn = 0;
 
         for (ServerPlayerEntity player : targets) {
@@ -1057,11 +1023,11 @@ public class StatisticsCommand {
 
     }
 
-    public static <T> int executeSet(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified) throws CommandSyntaxException {
+    private static <T> int executeSet(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified) throws CommandSyntaxException {
         return executeSet(source, targets, statType, statSpecified, 0);
     }
 
-    public static <T> int executeSet(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount) throws CommandSyntaxException {
+    private static <T> int executeSet(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount) throws CommandSyntaxException {
         int toReturn = 0;
         for (ServerPlayerEntity player : targets) {
             ServerStatHandler handler = player.getStatHandler();
@@ -1076,7 +1042,7 @@ public class StatisticsCommand {
         return toReturn;
     }
 
-    public static <T> int executeSet(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, ScoreboardObjective obj) throws CommandSyntaxException {
+    private static <T> int executeSet(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, ScoreboardObjective obj) throws CommandSyntaxException {
         int toReturn = 0;
         for (ServerPlayerEntity player : targets) {
             ServerStatHandler handler = player.getStatHandler();
@@ -1423,11 +1389,11 @@ public class StatisticsCommand {
         );
     }
 
-    public static <T> int executeReduce(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified) throws CommandSyntaxException {
+    private static <T> int executeReduce(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified) throws CommandSyntaxException {
         return executeReduce(source, targets, statType, statSpecified, 1);
     }
 
-    public static <T> int executeReduce(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount) throws CommandSyntaxException {
+    private static <T> int executeReduce(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, int amount) throws CommandSyntaxException {
         int toReturn = 0;
         for (ServerPlayerEntity player : targets) {
             ServerStatHandler handler = player.getStatHandler();
@@ -1441,7 +1407,7 @@ public class StatisticsCommand {
         return toReturn;
     }
 
-    public static <T> int executeReduce(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, ScoreboardObjective obj) throws CommandSyntaxException {
+    private static <T> int executeReduce(ServerCommandSource source, Collection<ServerPlayerEntity> targets, StatType<T> statType, T statSpecified, ScoreboardObjective obj) throws CommandSyntaxException {
         int toReturn = 0;
         for (ServerPlayerEntity player : targets) {
             ServerStatHandler handler = player.getStatHandler();

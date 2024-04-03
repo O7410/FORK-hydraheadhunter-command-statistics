@@ -3,7 +3,7 @@
 	"package": "hydraheadhunter.commandstatistics.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"ArgumentTypesMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -16,7 +16,7 @@ public class CustomStatsSuggestionProvider implements SuggestionProvider<ServerC
      public CompletableFuture<Suggestions> getSuggestions(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) throws CommandSyntaxException {
           // Add all Stats.CUSTOM stat ids to the suggestions.
           for (Identifier id : Registries.CUSTOM_STAT.getIds())
-               builder.suggest(id.getNamespace() + ":" + id.getPath() );
+               builder.suggest(id.toString());
 
           // Lock the suggestions after we've modified them.
           return builder.buildFuture();
